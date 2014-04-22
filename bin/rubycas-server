@@ -8,7 +8,7 @@ require 'rubygems'
 $:.unshift File.dirname(__FILE__) + "/../lib"
 
 if ARGV.join.match('--debugger')
-  require 'ruby-debug'
+  require 'pry'
   puts
   puts "=> Debugger Enabled"
 end
