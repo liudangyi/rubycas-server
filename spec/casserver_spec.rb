@@ -139,6 +139,21 @@ describe 'CASServer' do
       visit "/test/logout"
       page.status_code.should_not == 404
     end
+    it "should load custom authenticator" do
+      load_server("alt_config")
+      app.auth.length.should == 2
+      app.auth.should include CASServer::Authenticators::Test
+      app.auth.should include CASServer::Authenticators::CustomAuth
+    end
+    it "login with custom authenticator" do
+      load_server("alt_config")
+      reset_spec_database
+      visit "/login"
+      fill_in 'username', :with => VALID_USERNAME
+      fill_in 'password', :with => "custom_password"
+      click_button 'login-submit'
+      page.should have_content("You have successfully logged in")
+    end
   end
 
   describe 'validation' do
