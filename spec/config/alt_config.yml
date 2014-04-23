@@ -20,8 +20,13 @@ disable_auto_migrations: true
 quiet: true
 
 authenticator:
-  class: CASServer::Authenticators::Test
-  password: spec_password
+  -
+    class: CASServer::Authenticators::Test
+    password: spec_password
+  -
+    class: CASServer::Authenticators::CustomAuth
+    source: authenticators/custom_auth.rb
+    password: custom_password
 
 theme: simple
 

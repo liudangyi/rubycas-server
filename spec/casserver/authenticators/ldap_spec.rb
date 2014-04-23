@@ -11,18 +11,18 @@ describe "CASServer::Authenticators::LDAP" do
     # Trigger autoload to load net ldap
     CASServer::Authenticators::LDAP
 
-    @ldap_entry = mock(Net::LDAP::Entry.new)
-    @ldap_entry.stub!(:[]).and_return("Test")
+    @ldap_entry = double(Net::LDAP::Entry.new)
+    @ldap_entry.stub(:[]).and_return("Test")
 
-    @ldap = mock(Net::LDAP)
-    @ldap.stub!(:host=)
-    @ldap.stub!(:port=)
-    @ldap.stub!(:encryption)
-    @ldap.stub!(:bind_as).and_return(true)
-    @ldap.stub!(:authenticate).and_return(true)
-    @ldap.stub!(:search).and_return([@ldap_entry])
+    @ldap = double(Net::LDAP)
+    @ldap.stub(:host=)
+    @ldap.stub(:port=)
+    @ldap.stub(:encryption)
+    @ldap.stub(:bind_as).and_return(true)
+    @ldap.stub(:authenticate).and_return(true)
+    @ldap.stub(:search).and_return([@ldap_entry])
 
-    Net::LDAP.stub!(:new).and_return(@ldap)
+    Net::LDAP.stub(:new).and_return(@ldap)
   end
 
   describe '#validate' do
