@@ -64,7 +64,7 @@ describe "CASServer::Authenticators::ActiveResource" do
 
       def mock_authenticate identity = nil
         identity = CASServer::Authenticators::Helpers::Identity.new if identity.nil?
-        CASServer::Authenticators::Helpers::Identity.stub!(:authenticate).and_return(identity)
+        CASServer::Authenticators::Helpers::Identity.stub(:authenticate).and_return(identity)
       end
 
       def sample_identity attrs = {}
@@ -87,7 +87,7 @@ describe "CASServer::Authenticators::ActiveResource" do
       end
 
       it "should return false when http raises" do
-        CASServer::Authenticators::Helpers::Identity.stub!(:authenticate).and_raise(ActiveResource::ForbiddenAccess.new({}))
+        CASServer::Authenticators::Helpers::Identity.stub(:authenticate).and_raise(ActiveResource::ForbiddenAccess.new({}))
         auth.validate(credentials).should be_false
       end
 
