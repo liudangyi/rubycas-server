@@ -396,6 +396,11 @@ module CASServer
         @username.downcase!
       end
 
+      if @username && settings.config[:upcase_username]
+        $LOG.debug("Converting username #{@username.inspect} to uppercase because 'upcase_username' option is enabled.")
+        @username.upcase!
+      end
+
       if error = validate_login_ticket(@lt)
         @message = {:type => 'mistake', :message => error}
         # generate another login ticket to allow for re-submitting the form
